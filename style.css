@@ -149,7 +149,7 @@ main {
   justify-content: center;
   align-items: center;
   height: 100vh; /* Center vertically */
-  /* background-color: #0d1117; Dark background (like your image) */
+  background-color: #0d1117;
 }
 
 .list {
@@ -158,16 +158,20 @@ main {
   align-items: center;
   gap: 10px; /* Space between images */
   /* flex-wrap: nowrap; Keep all 10 in a row */
-  overflow-x: auto; /* Enable scroll if too wide */
+  /* overflow-x: auto; Enable scroll if too wide */
   overflow-y: visible;
   padding: 20px;
+}
+.list {
+  perspective: 1000px; /* creates 3D depth for children */
+  transform-style: preserve-3d;
 }
 
 /* Each image container */
 .hidenseek {
   width: 120px;
   height: 200px;
-  flex-shrink: 0; /* Prevent shrinking */
+  /* flex-shrink: 0; Prevent shrinking */
   overflow: hidden;
   border-radius: 10px; /* Rounded corners */
   transition: transform 0.3s ease;
@@ -181,53 +185,46 @@ main {
   display: block;
 }
 
-.list {
-  perspective: 1000px; /* creates 3D depth for children */
-  transform-style: preserve-3d;
-}
-
 .list .hidenseek {
   transition: transform 0.5s, filter 0.5s;
-  filter: brightness(0.25); /* initial dimmed state */
+  filter: brightness(0.15); /* initial dimmed state */
   transform: translateZ(0); /* default */
   will-change: transform; /* hint for smoother animation */
   position: relative;
-  transform: translateZ(0);
   overflow: hidden;
 }
 
 .list .hidenseek:hover {
   filter: brightness(1);
-  transform: translateZ(175px); /* smaller value is more visually stable */
-  z-index: 50; /* keep hovered item above neighbours */
+  transform: translateZ(200px); /* smaller value is more visually stable */
 }
 
 .list .hidenseek:hover + * {
-  filter: brightness(0.8);
-  transform: translateZ(150px) rotateY(30deg);
+  filter: brightness(0.6);
+  transform: translateZ(150px) rotateY(40deg);
 }
 
 .list .hidenseek:hover + * + * {
-  filter: brightness(0.6);
+  filter: brightness(0.4);
   transform: translateZ(70px) rotateY(20deg);
 }
 
 .list .hidenseek:hover + * + * + * {
-  filter: brightness(0.4);
+  filter: brightness(0.2);
   transform: translateZ(30px) rotateY(10deg);
 }
 
 .list .hidenseek:has(+ * :hover) {
-  filter: brightness(0.8);
-  transform: translateZ(150px) rotateY(-30deg);
+  filter: brightness(0.6);
+  transform: translateZ(150px) rotateY(-40deg);
 }
 
 .list .hidenseek:has(+ * + *:hover) {
-  filter: brightness(0.6);
+  filter: brightness(0.4);
   transform: translateZ(70px) rotateY(-20deg);
 }
 
 .list .hidenseek:has(+ * + * + *:hover) {
-  filter: brightness(0.4);
+  filter: brightness(0.2);
   transform: translateZ(30px) rotateY(-10deg);
 }
